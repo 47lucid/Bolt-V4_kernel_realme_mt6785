@@ -4694,6 +4694,7 @@ static int __netif_receive_skb(struct sk_buff *skb)
 	return ret;
 }
 
+<<<<<<< HEAD
 static void __netif_receive_skb_list(struct list_head *head)
 {
 	unsigned long noreclaim_flag = 0;
@@ -4724,6 +4725,8 @@ static void __netif_receive_skb_list(struct list_head *head)
 		memalloc_noreclaim_restore(noreclaim_flag);
 }
 
+=======
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 static int generic_xdp_install(struct net_device *dev, struct netdev_bpf *xdp)
 {
 	struct bpf_prog *old = rtnl_dereference(dev->xdp_prog);

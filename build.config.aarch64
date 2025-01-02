@@ -1,7 +1,10 @@
 ARCH=arm64
 
 CROSS_COMPILE=aarch64-linux-gnu-
+<<<<<<< HEAD
 CROSS_COMPILE_COMPAT=arm-linux-gnueabi-
+=======
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin
 
 FILES="

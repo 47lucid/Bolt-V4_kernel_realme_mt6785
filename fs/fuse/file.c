@@ -186,7 +186,7 @@ int fuse_do_open(struct fuse_conn *fc, u64 nodeid, struct file *file,
 		if (!err) {
 			ff->fh = outarg.fh;
 			ff->open_flags = outarg.open_flags;
-
+			fuse_passthrough_setup(fc, ff, &outarg);
 		} else if (err != -ENOSYS || isdir) {
 			fuse_file_free(ff);
 			return err;
@@ -311,10 +311,15 @@ void fuse_release_common(struct file *file, bool isdir)
 	struct fuse_req *req = ff->reserved_req;
 	int opcode = isdir ? FUSE_RELEASEDIR : FUSE_RELEASE;
 
+<<<<<<< HEAD
 #ifdef CONFIG_OPLUS_FEATURE_FUSE_FS_SHORTCIRCUIT
 //shubin@BSP.Kernel.FS 2020/08/20 improving fuse storage performance
 	fuse_shortcircuit_release(ff);
 #endif /* CONFIG_OPLUS_FEATURE_FUSE_FS_SHORTCIRCUIT */
+=======
+	fuse_passthrough_release(&ff->passthrough);
+
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 	fuse_prepare_release(ff, file->f_flags, opcode);
 
 	if (ff->flock) {
@@ -984,11 +989,15 @@ static ssize_t fuse_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
 {
 	struct inode *inode = iocb->ki_filp->f_mapping->host;
 	struct fuse_conn *fc = get_fuse_conn(inode);
+<<<<<<< HEAD
 #ifdef CONFIG_OPLUS_FEATURE_FUSE_FS_SHORTCIRCUIT
 //shubin@BSP.Kernel.FS 2020/08/20 improving fuse storage performance
 	struct fuse_file *ff = iocb->ki_filp->private_data;
 	ssize_t ret_val;
 #endif /* CONFIG_OPLUS_FEATURE_FUSE_FS_SHORTCIRCUIT */
+=======
+	struct fuse_file *ff = iocb->ki_filp->private_data;
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 
 	if (fuse_is_bad(inode))
 		return -EIO;
@@ -1012,8 +1021,13 @@ static ssize_t fuse_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
 	else
 		ret_val = generic_file_read_iter(iocb, to);
 
+<<<<<<< HEAD
 	return ret_val;
 #else
+=======
+	if (ff->passthrough.filp)
+		return fuse_passthrough_read_iter(iocb, to);
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 	return generic_file_read_iter(iocb, to);
 #endif /* CONFIG_OPLUS_FEATURE_FUSE_FS_SHORTCIRCUIT */
 }
@@ -1262,6 +1276,10 @@ static ssize_t fuse_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
 	struct inode *inode = mapping->host;
 	ssize_t err;
 	loff_t endbyte = 0;
+	struct fuse_file *ff = file->private_data;
+
+	if (ff->passthrough.filp)
+		return fuse_passthrough_write_iter(iocb, from);
 
 #ifdef CONFIG_OPLUS_FEATURE_FUSE_FS_SHORTCIRCUIT
 //shubin@BSP.Kernel.FS 2020/08/20 improving fuse storage performance
@@ -2177,12 +2195,19 @@ static const struct vm_operations_struct fuse_file_vm_ops = {
 
 static int fuse_file_mmap(struct file *file, struct vm_area_struct *vma)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_OPLUS_FEATURE_FUSE_FS_SHORTCIRCUIT
 	struct fuse_file *ff = file->private_data;
 
 	if (ff->rw_lower_file)
 		return fuse_shortcircuit_mmap(file, vma);
 #endif /* CONFIG_OPLUS_FEATURE_FUSE_FS_SHORTCIRCUIT */
+=======
+	struct fuse_file *ff = file->private_data;
+
+	if (ff->passthrough.filp)
+		return fuse_passthrough_mmap(file, vma);
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 
 	if ((vma->vm_flags & VM_SHARED) && (vma->vm_flags & VM_MAYWRITE))
 		fuse_link_write_file(file);

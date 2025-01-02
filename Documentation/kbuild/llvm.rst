@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+.. _kbuild_llvm:
+
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 ==============================
 Building Linux with Clang/LLVM
 ==============================
@@ -36,6 +41,7 @@ Cross Compiling
 A single Clang compiler binary will typically contain all supported backends,
 which can help simplify cross compiling. ::
 
+<<<<<<< HEAD
 	make ARCH=arm64 CC=clang CROSS_COMPILE=aarch64-linux-gnu-
 
 ``CROSS_COMPILE`` is not used to prefix the Clang compiler binary, instead
@@ -43,6 +49,15 @@ which can help simplify cross compiling. ::
 example: ::
 
 	clang --target aarch64-linux-gnu foo.c
+=======
+	ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make CC=clang
+
+``CROSS_COMPILE`` is not used to prefix the Clang compiler binary, instead
+``CROSS_COMPILE`` is used to set a command line flag: ``--target=<triple>``. For
+example: ::
+
+	clang --target=aarch64-linux-gnu foo.c
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 
 LLVM Utilities
 --------------
@@ -136,6 +151,11 @@ Getting Help
 - `Wiki <https://github.com/ClangBuiltLinux/linux/wiki>`_
 - `Beginner Bugs <https://github.com/ClangBuiltLinux/linux/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22>`_
 
+<<<<<<< HEAD
+=======
+.. _getting_llvm:
+
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 Getting LLVM
 -------------
 

@@ -478,6 +478,7 @@ GCC_PLUGINS_CFLAGS :=
 CLANG_FLAGS :=
 OPPO_F2FS_DEBUG := false
 
+<<<<<<< HEAD
 
 KBUILD_CFLAGS +=   -DVENDOR_EDIT
 KBUILD_CPPFLAGS += -DVENDOR_EDIT
@@ -510,6 +511,8 @@ export OPPO_MEMLEAK_DETECT
 export OPLUS_MEMLEAK_DETECT
 #endif
 
+=======
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 export ARCH SRCARCH CONFIG_SHELL HOSTCC HOSTCFLAGS CROSS_COMPILE LD CC
 export CPP AR NM STRIP OBJCOPY OBJDUMP READELF HOSTLDFLAGS HOST_LOADLIBES
 export MAKE AWK GENKSYMS INSTALLKERNEL PERL PYTHON UTS_MACHINE
@@ -589,8 +592,11 @@ ifeq ($(LLVM_IAS),0)
 CLANG_FLAGS	+= -no-integrated-as
 GCC_TOOLCHAIN_DIR := $(dir $(shell which $(CROSS_COMPILE)elfedit))
 CLANG_FLAGS	+= --prefix=$(GCC_TOOLCHAIN_DIR)$(notdir $(CROSS_COMPILE))
+<<<<<<< HEAD
 else
 CLANG_FLAGS	+= -integrated-as
+=======
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 endif
 CLANG_FLAGS	+= -Werror=unknown-warning-option
 KBUILD_CFLAGS	+= $(CLANG_FLAGS)
@@ -921,7 +927,11 @@ KBUILD_CFLAGS   += $(call cc-option, -gsplit-dwarf, -g)
 else
 KBUILD_CFLAGS	+= -g
 endif
+<<<<<<< HEAD
 ifeq ($(LLVM_IAS),0)
+=======
+ifneq ($(LLVM_IAS),1)
+>>>>>>> 4c95a0cf63723cdd988e63e0c956b74c8a1767b0
 KBUILD_AFLAGS	+= -Wa,-gdwarf-2
 endif
 endif
@@ -1111,7 +1121,7 @@ KBUILD_AFLAGS   += $(ARCH_AFLAGS)   $(KAFLAGS)
 KBUILD_CFLAGS   += $(ARCH_CFLAGS)   $(KCFLAGS)
 
 # Use --build-id when available.
-LDFLAGS_BUILD_ID := $(call ld-option, --build-id)
+LDFLAGS_BUILD_ID := --build-id
 KBUILD_LDFLAGS_MODULE += $(LDFLAGS_BUILD_ID)
 LDFLAGS_vmlinux += $(LDFLAGS_BUILD_ID)
 
