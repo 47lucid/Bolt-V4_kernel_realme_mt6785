@@ -3,6 +3,7 @@ VERSION = 4
 PATCHLEVEL = 14
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 SUBLEVEL = 337
 EXTRAVERSION = 
 =======
@@ -10,6 +11,9 @@ SUBLEVEL = 338
 =======
 SUBLEVEL = 339
 >>>>>>> 716c9678402cf030f676686b86814e2a61b65472
+=======
+SUBLEVEL = 340
+>>>>>>> 2d2d62c45a913dc991cc0c734954a56a366ff81c
 EXTRAVERSION = -openela
 >>>>>>> 50b451f5f55d7454dfb5b4f39160589b4e29796d
 NAME = Petit Gorille
